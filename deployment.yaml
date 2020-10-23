@@ -1,10 +1,14 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name:  lgo
   labels:
     app:  lgo
 spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lgo
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -13,7 +17,7 @@ spec:
   template:
     metadata:
       labels:
-    app:  lgo
+        app:  lgo
     spec:
       containers:
       - image: yunabe/lgo
