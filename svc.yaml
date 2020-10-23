@@ -8,6 +8,7 @@ spec:
     app:  lgo
   type:  NodePort
   ports:
-  - name:  http
-    port:  8686
-    targetPort:  8888
+  - nodePort: 8888
+    port: 8888
+    protocol: TCP
+    targetPort: 8888
