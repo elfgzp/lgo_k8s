@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name:  lgo
+  labels:
+    app:  lgo
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+    app:  lgo
+    spec:
+      containers:
+      - image: yunabe/lgo
+        name:  app
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "200M"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8888
+          initialDelaySeconds: 90
+          timeoutSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8888
+          initialDelaySeconds: 30
+          timeoutSeconds: 10
+        env:
+        ports:
+        - containerPort:  8888
+      restartPolicy: Always
+      imagePullPolicy: Always

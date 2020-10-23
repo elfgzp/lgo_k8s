@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: lgo
+  namespace: lgo
+spec:
+  selector:
+    app:  lgo
+  type:  NodePort
+  ports:
+  - name:  http
+    port:  8888
+    targetPort:  8888
