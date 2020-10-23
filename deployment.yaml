@@ -43,5 +43,3 @@ spec:
           timeoutSeconds: 10
         ports:
         - containerPort:  8888
-      restartPolicy: Always
-      imagePullPolicy: Always
