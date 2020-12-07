@@ -1,3 +1,32 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: lgo-pv
+  namespace: db
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/opt/lgo"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lgo-pv-claim
+  namespace: db
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -44,3 +73,14 @@ spec:
           timeoutSeconds: 10
         ports:
         - containerPort:  8888
+        volumeMounts:
+            - name: lgo-pv-claim-lgo
+              mountPath: /lgo
+              subPath: lgo
+            - name: lgo-pv-claim-examples
+              mountPath: /examples
+              subPath: examples
+      volumes:
+        - name: lgo-pv-claim
+          persistentVolumeClaim:
+            claimName: lgo-pv-claim
