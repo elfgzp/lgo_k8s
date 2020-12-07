@@ -74,10 +74,10 @@ spec:
         ports:
         - containerPort:  8888
         volumeMounts:
-            - name: lgo-pv-claim-lgo
+            - name: lgo-pv-claim
               mountPath: /lgo
               subPath: lgo
-            - name: lgo-pv-claim-examples
+            - name: lgo-pv-claim
               mountPath: /examples
               subPath: examples
       volumes:
